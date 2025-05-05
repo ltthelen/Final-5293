@@ -1,2 +1,33 @@
 # Introduction
-This is 
+
+In this project, we investigate the robustness of model explanations across three dimensions: randomness in model training, size of training data, and consistency between model-agnostic explanations and inherently interpretable models. We use Random Forest and Logistic Regression to test these three aspects, and the process is structured in a 12 steps:
+
+**\[Step1 Chepter\]**
+
+Repeatability - Random Forest
+
+Repeatability Analysis - Random Forest
+
+Repeatability - Logistic Regression
+
+Repeatability Analysis - Logistic Regression
+
+**\[Step2 Chepter\]**
+
+Change Training Dataset Size - Random Forest
+
+Change Training Dataset Size Analysis - Random Forest
+
+Change Training Dataset Size - Logistic Regression
+
+Change Training Dataset Size Analysis - Logistic Regression
+
+**\[Step3 Chepter\]**
+
+Consistency - Random Forest
+
+Consistency Analysis - Random Forest
+
+Consistency - Logistic Regression
+
+Consistency Analysis - Logistic Regression
