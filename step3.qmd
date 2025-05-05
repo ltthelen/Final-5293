@@ -1,4 +1,4 @@
-# Step3
+# Step3: Consistency and Sensitivity of Local Explanations
 
 ## Consistency - Random Forest 
 ```{r}
