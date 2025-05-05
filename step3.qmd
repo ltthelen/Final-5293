@@ -1,13 +1,261 @@
 # Step3
 
-<style>
-  * {
-    font-family: sans-serif;
-  }
-</style> 
+## Consistency - Random Forest 
+```{r}
+library(randomForest)
+library(DALEX)
+library(iml)
+library(mlbench)
+library(caret)
 
-<div id="plot">
-</div>
+data(PimaIndiansDiabetes)
+df <- na.omit(PimaIndiansDiabetes)
+set.seed(5293)
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script src="scripts/myscript.js"></script>
+train_idx <- createDataPartition(df$diabetes, p = 0.8, list = FALSE)
+train_data <- df[train_idx, ]
+test_data <- df[-train_idx, ]
+
+lime_results <- list()
+shap_results <- list()
+
+for (i in 1:10) {
+  set.seed(i)
+  rf_model <- randomForest(diabetes ~ ., data = train_data, ntree = 100)
+
+  # LIME
+  explainer_lime <- DALEX::explain(
+    rf_model,
+    data = train_data[, -ncol(train_data)],
+    y = train_data$diabetes
+  )
+  lime_expl <- predict_parts(
+    explainer_lime,
+    new_observation = test_data[1, -ncol(test_data)],
+    type = "break_down"
+  )
+  lime_results[[i]] <- lime_expl
+
+  # SHAP
+  X <- train_data[, -ncol(train_data)]
+  predictor <- iml::Predictor$new(
+    rf_model,
+    data = X,
+    y = train_data$diabetes,
+    type = "prob"
+  )
+  shap <- iml::Shapley$new(predictor, x.interest = test_data[1, -ncol(test_data)])
+  shap_results[[i]] <- shap$results
+}
+
+```
+
+```{r}
+library(randomForest)
+library(DALEX)
+library(DALEXtra)
+library(mlbench)
+library(caret)
+library(dplyr)
+library(ggplot2)
+
+data(PimaIndiansDiabetes)
+df <- na.omit(PimaIndiansDiabetes)
+df$diabetes <- factor(df$diabetes, levels = c("neg", "pos")) 
+
+
+set.seed(5293)
+train_idx <- createDataPartition(df$diabetes, p = 0.8, list = FALSE)
+train_data <- df[train_idx, ]
+test_data <- df[-train_idx, ]
+X <- train_data[, -ncol(train_data)]
+y <- train_data$diabetes
+```
+
+```{r}
+# logistic regression
+logit_model <- glm(diabetes ~ ., data = train_data, family = binomial)
+logit_coef <- coef(logit_model)[-1]  
+coef_df <- tibble(variable = names(logit_coef),
+                  logistic_coef = as.numeric(logit_coef))
+
+# RandomForest + LIME
+lime_results <- list()
+
+for (i in 1:10) {
+  set.seed(i)
+  rf_model <- randomForest(x = X, y = y, ntree = 100)
+
+  explainer <- DALEX::explain(
+    model = rf_model,
+    data = X,
+    y = NULL, 
+    predict_function = function(m, d) predict(m, d, type = "prob")[, 2],
+    label = paste0("rf_seed_", i),
+    verbose = FALSE
+  )
+
+  lime_expl <- predict_parts(
+    explainer,
+    new_observation = test_data[1, -ncol(test_data)],
+    type = "break_down"
+  )
+
+  lime_results[[i]] <- lime_expl
+}
+
+```
+
+```{r}
+library(stringr)
+
+coef_df <- tibble(
+  variable_clean = names(logit_coef),
+  logistic_coef = as.numeric(logit_coef)
+)
+
+lime_df <- bind_rows(lime_results)
+
+lime_df <- lime_df |>
+  mutate(variable_clean = str_trim(str_extract(variable, "^[^=]+")))
+
+lime_mean_df <- lime_df |>
+  group_by(variable_clean) |>
+  summarise(mean_lime = mean(contribution), .groups = "drop")
+
+consistency_df <- inner_join(coef_df, lime_mean_df, by = "variable_clean") |>
+  mutate(abs_diff = abs(logistic_coef - mean_lime))
+
+print(consistency_df)
+
+```
+```{r}
+library(ggplot2)
+
+ggplot(consistency_df, aes(x = mean_lime, y = logistic_coef, label = variable_clean)) +
+  geom_point(color = "blue", size = 3) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "gray") +
+  geom_text(nudge_y = 0.05, size = 3.5) +
+  labs(title = "Comparison of LIME Mean Contribution vs Logistic Coefficient",
+       x = "LIME Mean Contribution",
+       y = "Logistic Regression Coefficient") +
+  theme_minimal()
+```
+```{r}
+ggplot(consistency_df, aes(x = reorder(variable_clean, -abs_diff), y = abs_diff)) +
+  geom_col(fill = "red") +
+  labs(title = "Absolute Difference Between LIME and Logistic Coefficients",
+       x = "Variable", y = "Absolute Difference") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+## Consistency Analysis - Random Forest 
+we trained a logistic regression model using the same dataset and compared the model's coefficients with the mean LIME contributions aggregated across multiple runs. Since LIME is a local explanation method, while logistic regression provides global coefficients, their alignment can indicate whether local interpretability methods reflect global trends.
+
+From the scatter plot of logistic regression coefficients vs LIME mean contributions, features such as age, pressure, and triceps show small absolute differences between the logistic coefficient and LIME average contribution, suggesting good consistency. In contrast, pedigree exhibits a large deviation, indicating that LIME's local explanations for this variable may not align well with the global behavior captured by the logistic model.
+
+Overall, the analysis suggests that while LIME explanations are partially aligned with global model behavior, they may deviate for variables with complex influence.
+
+## Consistency - Logistic Regression
+
+In the third step, we examined the sensitivity of the model interpretation among different individuals. We used a fixed logistic regression model, applied LIME to 10 test samples and plotted a box plot of feature contributions.
+
+```{r}
+model_type.glm <- function(x, ...) "classification"
+predict_model.glm <- function(x, newdata, ...) {
+  preds <- predict(x, newdata, type = "response")
+  data.frame(`No` = 1 - preds, `Yes` = preds)
+}
+
+
+data(PimaIndiansDiabetes)
+df <- na.omit(PimaIndiansDiabetes)
+set.seed(5293)
+df$diabetes <- factor(df$diabetes)
+X <- df[, -ncol(df)]
+y <- df$diabetes
+
+lime_contributions <- list()
+shap_contributions <- list()
+
+
+train_idx <- createDataPartition(df$diabetes, p = 0.8, list = FALSE)
+train_data <- df[train_idx, ]
+test_data <- df[-train_idx, ]
+```
+
+
+```{r}
+logit_model <- glm(diabetes ~ ., data = train_data, family = binomial)
+
+lime_global <- lime::lime(
+  x = train_data[, -ncol(train_data)],
+  model = logit_model
+)
+
+lime_explanations <- lime::explain(
+  x = test_data[1:10, -ncol(test_data)],
+  explainer = lime_global,
+  n_features = 8,
+  n_labels = 1
+)
+
+sensitivity_df <- lime_explanations %>%
+  select(case, feature, feature_weight) %>%
+  rename(variable = feature, contribution = feature_weight)
+
+library(ggplot2)
+
+ggplot(sensitivity_df, aes(x = variable, y = contribution)) +
+  geom_boxplot(fill = "#69b3a2", alpha = 0.7) +
+  labs(
+    title = "LIME Sensitivity: Variability Across Test Samples",
+    x = "Variable",
+    y = "LIME Contribution"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+predictor <- iml::Predictor$new(model = logit_model, data = train_data[, -ncol(train_data)], y = train_data$diabetes)
+sensitivity_shap <- list()
+
+for (i in 1:10) {
+  shap <- iml::Shapley$new(predictor, x.interest = test_data[i, -ncol(test_data)])
+  df <- shap$results %>% mutate(case = i)
+  sensitivity_shap[[i]] <- df
+}
+
+shap_df <- bind_rows(sensitivity_shap) %>%
+  rename(variable = feature, contribution = phi)
+
+ggplot(shap_df, aes(x = variable, y = contribution)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.7) +
+  labs(title = "SHAP Sensitivity: Variability Across Test Samples",
+       x = "Variable", y = "SHAP Contribution") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+## Consistency Analysis - Logistic Regression
+1. LIME chart:
+
+Glucose: The box plot has the largest span (0.1-0.4+), indicating that the interpreted value is sensitive to the changes of the test case.
+
+There are also obvious changes in "mass" and "pregnant", and the contribution direction will change.
+
+Age, Triceps, Insulin: The box is very narrow and the values are almost fixed, indicating that individual changes have no significant impact on the interpretation.
+
+2. SHAP Diagram:
+
+Glucose remains the most sensitive variable, with a wider range of variation than LIME (-1 to 1.2).
+
+The contribution of SHAP to most variables (such as age, insulin, triceps) is almost constant.
+
+Compared with LIME, the directions are consistent (such as glucose, mass), but the variation amplitude is greater, showing the characteristic that the local interpretation of SHAP is more sensitive.
+
+
+LIME and SHAP explanations show a high degree of consistency in identifying the most sensitive and least sensitive features in different test samples. Although SHAP tends to exhibit a large range of variation due to its theoretical design, the overall ranking and directional contribution of features are closely consistent with the LIME results. 

@@ -1,1 +1,301 @@
-# Step2
+# Step2: Change Training Dataset Size 
+
+## Change Training Dataset Size - Random Forest
+
+```{r}
+library(randomForest)
+library(DALEX)
+library(iml)
+library(mlbench)
+library(caret)
+library(dplyr)
+
+data(PimaIndiansDiabetes)
+df <- na.omit(PimaIndiansDiabetes)
+df$diabetes <- factor(df$diabetes, levels = c("neg", "pos"))  
+
+set.seed(5293)
+train_idx <- createDataPartition(df$diabetes, p = 0.8, list = FALSE)
+train_data_full <- df[train_idx, ]
+test_data <- df[-train_idx, ]
+x_test <- test_data[1, -ncol(test_data)]
+
+fractions <- c(0.1, 0.3, 0.5, 1.0)
+lime_by_size <- list()
+shap_by_size <- list()
+```
+
+```{r}
+for (f in fractions) {
+  set.seed(2025)
+  n_sample <- floor(nrow(train_data_full) * f)
+  sampled_idx <- sample(nrow(train_data_full), n_sample)
+  sub_train <- train_data_full[sampled_idx, ]
+  
+  X_sub <- sub_train[, -ncol(sub_train)]
+  y_sub <- sub_train$diabetes
+
+  rf_model <- randomForest(x = X_sub, y = y_sub, ntree = 100)
+
+  # LIME
+ explainer <- DALEX::explain(
+  model = rf_model,
+  data = X_sub,
+  y = NULL,  
+  predict_function = function(m, d) predict(m, d, type = "prob")[, 2],
+  label = paste0("RF_", f*100, "%"),
+  verbose = FALSE
+)
+
+  lime_expl <- predict_parts(
+    explainer,
+    new_observation = x_test,
+    type = "break_down"
+  )
+  lime_by_size[[as.character(f)]] <- lime_expl
+
+  # SHAP
+  predictor <- Predictor$new(rf_model, data = X_sub, y = y_sub, type = "prob")
+  shap <- Shapley$new(predictor, x.interest = x_test)
+  shap_by_size[[as.character(f)]] <- shap$results
+}
+
+```
+
+
+
+```{r}
+# LIME
+
+predict_function = function(m, d) {
+  predict(m, d, type = "prob")[, "pos"]
+}
+
+
+explainer <- DALEX::explain(
+  model = rf_model,
+  data = X_sub,
+  y = NULL,
+  predict_function = function(m, d) predict(m, d, type = "prob")[, "pos"],
+  label = paste0("RF_", f * 100, "%"),
+  verbose = FALSE
+)
+
+lime_df <- predict_parts(
+  explainer,
+  new_observation = x_test,
+  type = "break_down"  
+)
+
+print(lime_df)
+```
+
+
+```{r}
+library(dplyr)
+
+lime_all <- purrr::map2_dfr(
+  lime_by_size,
+  names(lime_by_size),
+  ~ .x |>
+    filter(variable != "intercept", variable != "", variable != "prediction") |>
+    mutate(variable = factor(variable),
+           fraction = .y)
+)
+
+
+lime_sd_summary <- lime_all |>
+  group_by(variable) |>
+  summarise(sd_contribution = sd(contribution), .groups = "drop")
+
+
+lime_sd_summary |>
+  arrange(desc(sd_contribution)) |>
+  print()
+
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(lime_sd_summary, aes(x = reorder(variable, sd_contribution), y = sd_contribution)) +
+  geom_col(fill = "grey") +
+  coord_flip() +
+  labs(
+    title = "Stability of LIME Explanations",
+    x = "Variable",
+    y = "Standard Deviation"
+  ) +
+  theme_minimal(base_size = 14)
+
+
+ggplot(lime_all, aes(x = reorder(variable, contribution, FUN = median), y = contribution)) +
+  geom_boxplot(fill = "orange", color = "black", outlier.shape = 21) +
+  coord_flip() +
+  labs(
+    title = "Distribution of LIME Contributions",
+    x = "Variable",
+    y = "Contribution"
+  ) +
+  theme_minimal(base_size = 14)
+
+```
+
+```{r}
+# SHAP
+
+library(dplyr)
+library(ggplot2)
+
+shap_df <- bind_rows(lapply(names(shap_by_size), function(name) {
+  df <- shap_by_size[[name]]
+  df$train_size <- name
+  return(df)
+}))
+
+shap_df_clean <- shap_df |>
+  rename(variable = feature,
+         contribution = phi) |>
+  filter(variable != "intercept", variable != "") |>
+  mutate(variable = factor(variable))
+
+shap_sd_summary <- shap_df_clean |>
+  group_by(variable) |>
+  summarise(sd_contribution = sd(contribution), .groups = "drop")
+
+print(shap_sd_summary |> arrange(desc(sd_contribution)))
+```
+
+```{r}
+ggplot(shap_df_clean, aes(x = variable, y = contribution)) +
+  geom_boxplot(fill = "pink") +
+  labs(title = "Distribution of SHAP Contributions",
+       x = "Variable", y = "Contribution") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+ggplot(shap_sd_summary, aes(x = reorder(variable, -sd_contribution), y = sd_contribution)) +
+  geom_col(fill = "brown") +
+  labs(title = "Standard Deviation of SHAP Contributions",
+       x = "Variable", y = "Standard Deviation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+## Change Training Dataset Size Analysis  - Random Forest 
+
+We trained random forest models on 10%, 30%, 50%, and 100% subsets of the PimaIndiansDiabetes dataset. For each subset, LIME and SHAP explanations were generated for the same run, and the standard deviation of contributions was used to quantify explanation variability.
+
+LIME results show that variables such as glucose and mass have the lowest standard deviation, so they are the most stable explanations. However, triceps and pedigree show higher variability across training sizes. This suggests that features with stronger signal or clearer influence on the prediction remain stable even when trained on smaller datasets. SHAP results similar trends but exhibit overall greater variability. Notably, the glucose feature shows the highest standard deviation in SHAP, indicating that its attribution is more sensitive to the training data size.
+
+In conclusion, increasing the size of training data generally leads to more stable and consistent feature attributions.
+
+## Change Training Dataset Size - Logistic Regression
+
+We examined how the size of the training dataset affects the variability of LIME explanations, particularly across different feature-value pairs (e.g., glucose = 101, mass = 31.4).
+The bar chart displays the standard deviation (SD) of LIME contributions at four training sizes: 10%, 30%, 50%, and 100%.
+```{r}
+model_type.glm <- function(x, ...) "classification"
+predict_model.glm <- function(x, newdata, ...) {
+  preds <- predict(x, newdata, type = "response")
+  data.frame(`No` = 1 - preds, `Yes` = preds)
+}
+
+
+data(PimaIndiansDiabetes)
+df <- na.omit(PimaIndiansDiabetes)
+set.seed(5293)
+df$diabetes <- factor(df$diabetes)
+X <- df[, -ncol(df)]
+y <- df$diabetes
+
+lime_contributions <- list()
+shap_contributions <- list()
+
+
+train_idx <- createDataPartition(df$diabetes, p = 0.8, list = FALSE)
+train_data <- df[train_idx, ]
+test_data <- df[-train_idx, ]
+```
+
+
+```{r}
+sizes <- c(0.1, 0.3, 0.5, 1.0)
+n_obs <- 5  
+n_repeats <- 5 
+
+size_results <- list()
+
+for (size in sizes) {
+  for (rep in 1:n_repeats) {
+    
+    if (size == 1.0) {
+      sub_train <- train_data
+    } else {
+      sub_idx <- sample(nrow(train_data), size = floor(nrow(train_data) * size))
+      sub_train <- train_data[sub_idx, ]
+    }
+
+    logit_model <- glm(diabetes ~ ., data = sub_train, family = binomial)
+
+    explainer <- DALEX::explain(
+      logit_model,
+      data = sub_train[, -ncol(sub_train)],
+      y = as.numeric(sub_train$diabetes == "pos"),
+      label = paste0("glm_size_", size)
+    )
+
+    for (i in 1:n_obs) {
+      lime_expl <- predict_parts(
+        explainer,
+        new_observation = test_data[i, -ncol(test_data)],
+        type = "break_down"
+      )
+      lime_expl$size <- as.character(size)
+      lime_expl$rep <- rep
+      lime_expl$obs <- i
+      size_results[[length(size_results) + 1]] <- lime_expl
+    }
+  }
+}
+
+
+size_df <- bind_rows(size_results) %>%
+  filter(!is.na(variable), variable != "intercept")
+
+robust_summary <- size_df %>%
+  group_by(size, variable) %>%
+  summarise(sd_contribution = sd(contribution, na.rm = TRUE), .groups = 'drop')
+
+ggplot(robust_summary, aes(x = variable, y = sd_contribution, fill = size)) +
+  geom_col(position = position_dodge()) +
+  labs(title = "LIME Contribution Variability across Training Sizes",
+       x = "Variable", y = "Standard Deviation of Contribution") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+## Change Training Dataset Size Analysis  - Logistic Regression
+
+Overall trend:
+
+As the training size increases, the standard deviation (SD) of most feature contributions tends to decrease, indicating improved explanation stability. In general, red bars (10%) are taller than green (30%), blue (50%), and purple (100%), especially for features like glucose.
+Some features remain low throughout, but most show reduced SD with more data.
+
+However, for the feature prediction, the SD remains consistently high across all training sizes, suggesting inherent instability in interpreting the predicted outcome itself.
+
+
+High-variability pairs:
+
+Among all variables, `glucose = 166` shows the highest standard deviation at small training sizes, suggesting that its LIME contribution is highly sensitive to training data fluctuations. This variability decreases as training size increases, indicating improved robustness.
+
+The item `prediction`, which represents the explanation of the predicted class itself, consistently exhibits the highest SD across all training sizes.
+
+Stable feature-value pairs:
+
+Pairs like pressure = 66, pressure = 72, triceps = 29, triceps = 32, and insulin = 88 maintain low variability throughout, indicating strong robustness in LIME's local explanations for these values.
+
+LIME explanations become more reliable with larger training sets. When using small training sizes (especially <30%), explanations of some feature values may be highly volatile and potentially misleading. For critical medical features like glucose and BMI, we recommend using at least 50% of the data to ensure stable and trustworthy interpretations.
