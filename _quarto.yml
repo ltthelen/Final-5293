@@ -6,11 +6,11 @@ execute:
   echo: true
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "FINAL PROJECT"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - TIANTIAN LI (UNI1)
+    - XINRONG DONG (UNI2)
+  repo-url: https://github.com/ltthelen/Final-5293
   date: today
   page-footer:
     right: |
@@ -18,9 +18,9 @@ book:
   repo-actions: [edit, issue]
   chapters:
     - index.qmd
-    - data.qmd
-    - results.qmd
-    - d3graph.qmd
+    - step1.qmd
+    - step2.qmd
+    - step3.qmd
     - conclusion.qmd
 
 format:
