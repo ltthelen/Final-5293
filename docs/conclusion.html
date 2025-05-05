@@ -168,6 +168,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>In this study, we evaluated the stability of Random Forest and Logistic Regression models with local explanation methods, LIME and SHAP, on the PimaIndiansDiabetes dataset.</p>
+<p>Through repeatability analysis, we found that LIME explanations were moderately sensitive to random initialization. However, SHAP exhibited more balanced mean contributions but higher variance for certain influential features, suggesting greater sensitivity to model perturbations. In the training dataset size analysis, we observed that increasing training size generally improved the stability of both LIME and SHAP explanations. Logistic regression models yielded more consistent LIME explanations, indicating stronger robustness to sample size fluctuations. Finally, in the consistency analysis, we compared the global coefficients of logistic regression to the average local contributions from LIME.While many features, such as age and pressure, aligned well between global and local interpretations, others like pedigree showed divergence, highlighting the limits of local explanations in capturing complex global behavior. SHAP demonstrated high sensitivity and directional agreement with LIME, but often with greater attribution magnitude.</p>
+<p>Overall, the results suggest that while both LIME and SHAP are valuable tools for interpreting model predictions, their stability and alignment with global trends can vary considerably depending on the model, data quantity, and specific feature characteristics.</p>
 
 
 

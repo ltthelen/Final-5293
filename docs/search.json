@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "5293 FINAL PROJECT",
     "section": "",
-    "text": "1 Introduction\nThis is",
+    "text": "1 Introduction\nIn this project, we investigate the robustness of model explanations across three dimensions: randomness in model training, size of training data, and consistency between model-agnostic explanations and inherently interpretable models. We use Random Forest and Logistic Regression to test these three aspects, and the process is structured in a 12 steps:\n[Step1 Chepter]\nRepeatability - Random Forest\nRepeatability Analysis - Random Forest\nRepeatability - Logistic Regression\nRepeatability Analysis - Logistic Regression\n[Step2 Chepter]\nChange Training Dataset Size - Random Forest\nChange Training Dataset Size Analysis - Random Forest\nChange Training Dataset Size - Logistic Regression\nChange Training Dataset Size Analysis - Logistic Regression\n[Step3 Chepter]\nConsistency - Random Forest\nConsistency Analysis - Random Forest\nConsistency - Logistic Regression\nConsistency Analysis - Logistic Regression",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -127,6 +127,16 @@
     "text": "4.4 Consistency Analysis - Logistic Regression\n\nLIME chart:\n\nGlucose: The box plot has the largest span (0.1-0.4+), indicating that the interpreted value is sensitive to the changes of the test case.\nThere are also obvious changes in “mass” and “pregnant”, and the contribution direction will change.\nAge, Triceps, Insulin: The box is very narrow and the values are almost fixed, indicating that individual changes have no significant impact on the interpretation.\n\nSHAP Diagram:\n\nGlucose remains the most sensitive variable, with a wider range of variation than LIME (-1 to 1.2).\nThe contribution of SHAP to most variables (such as age, insulin, triceps) is almost constant.\nCompared with LIME, the directions are consistent (such as glucose, mass), but the variation amplitude is greater, showing the characteristic that the local interpretation of SHAP is more sensitive.\nLIME and SHAP explanations show a high degree of consistency in identifying the most sensitive and least sensitive features in different test samples. Although SHAP tends to exhibit a large range of variation due to its theoretical design, the overall ranking and directional contribution of features are closely consistent with the LIME results.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Step3: Consistency and Sensitivity of Local Explanations</span>"
+    ]
+  },
+  {
+    "objectID": "conclusion.html",
+    "href": "conclusion.html",
+    "title": "5  Conclusion",
+    "section": "",
+    "text": "In this study, we evaluated the stability of Random Forest and Logistic Regression models with local explanation methods, LIME and SHAP, on the PimaIndiansDiabetes dataset.\nThrough repeatability analysis, we found that LIME explanations were moderately sensitive to random initialization. However, SHAP exhibited more balanced mean contributions but higher variance for certain influential features, suggesting greater sensitivity to model perturbations. In the training dataset size analysis, we observed that increasing training size generally improved the stability of both LIME and SHAP explanations. Logistic regression models yielded more consistent LIME explanations, indicating stronger robustness to sample size fluctuations. Finally, in the consistency analysis, we compared the global coefficients of logistic regression to the average local contributions from LIME.While many features, such as age and pressure, aligned well between global and local interpretations, others like pedigree showed divergence, highlighting the limits of local explanations in capturing complex global behavior. SHAP demonstrated high sensitivity and directional agreement with LIME, but often with greater attribution magnitude.\nOverall, the results suggest that while both LIME and SHAP are valuable tools for interpreting model predictions, their stability and alignment with global trends can vary considerably depending on the model, data quantity, and specific feature characteristics.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conclusion</span>"
     ]
   }
 ]
