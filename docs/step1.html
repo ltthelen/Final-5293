@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Step1 – FINAL PROJECT</title>
+<title>2&nbsp; Step1: Repeatability – FINAL PROJECT</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -81,7 +115,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./step1.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Step1</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./step1.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Step1: Repeatability</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -118,19 +152,19 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./step1.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Step1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Step1: Repeatability</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./step2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Results</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Step2</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./step3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interactive graph</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Step3</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -149,8 +183,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#description" id="toc-description" class="nav-link active" data-scroll-target="#description"><span class="header-section-number">2.1</span> Description</a></li>
-  <li><a href="#missing-value-analysis" id="toc-missing-value-analysis" class="nav-link" data-scroll-target="#missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</a></li>
+  <li><a href="#repeatability---random-forest" id="toc-repeatability---random-forest" class="nav-link active" data-scroll-target="#repeatability---random-forest"><span class="header-section-number">2.1</span> Repeatability - Random Forest</a></li>
+  <li><a href="#repeatability-analysis---random-forest" id="toc-repeatability-analysis---random-forest" class="nav-link" data-scroll-target="#repeatability-analysis---random-forest"><span class="header-section-number">2.2</span> Repeatability Analysis - Random Forest</a></li>
+  <li><a href="#repeatability---logistic-regression" id="toc-repeatability---logistic-regression" class="nav-link" data-scroll-target="#repeatability---logistic-regression"><span class="header-section-number">2.3</span> Repeatability - Logistic Regression</a></li>
+  <li><a href="#repeatability-analysis---logistic-regression" id="toc-repeatability-analysis---logistic-regression" class="nav-link" data-scroll-target="#repeatability-analysis---logistic-regression"><span class="header-section-number">2.4</span> Repeatability Analysis - Logistic Regression</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/ltthelen/Final-5293/edit/main/step1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/ltthelen/Final-5293/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -159,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Step1</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Step1: Repeatability</span></h1>
 </div>
 
 
@@ -176,11 +212,712 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="description" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="description"><span class="header-section-number">2.1</span> Description</h2>
+<section id="repeatability---random-forest" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="repeatability---random-forest"><span class="header-section-number">2.1</span> Repeatability - Random Forest</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(randomForest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>randomForest 4.7-1.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Type rfNews() to see new features/changes/bug fixes.</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DALEX)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Welcome to DALEX (version: 2.4.3).
+Find examples and detailed introduction at: http://ema.drwhy.ai/</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iml)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggplot2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'ggplot2'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:randomForest':
+
+    margin</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lattice</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(PimaIndiansDiabetes)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(PimaIndiansDiabetes)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5293</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>train_idx <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(df<span class="sc">$</span>diabetes, <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> df[train_idx, ]</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> df[<span class="sc">-</span>train_idx, ]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>lime_results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>shap_results <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(i)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  rf_model <span class="ot">&lt;-</span> <span class="fu">randomForest</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> train_data, <span class="at">ntree =</span> <span class="dv">100</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># LIME</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  explainer_lime <span class="ot">&lt;-</span> DALEX<span class="sc">::</span><span class="fu">explain</span>(</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    rf_model,</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> train_data[, <span class="sc">-</span><span class="fu">ncol</span>(train_data)],</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> train_data<span class="sc">$</span>diabetes</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  lime_expl <span class="ot">&lt;-</span> <span class="fu">predict_parts</span>(</span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    explainer_lime,</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">new_observation =</span> test_data[<span class="dv">1</span>, <span class="sc">-</span><span class="fu">ncol</span>(test_data)],</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"break_down"</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>  lime_results[[i]] <span class="ot">&lt;-</span> lime_expl</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># SHAP</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>  X <span class="ot">&lt;-</span> train_data[, <span class="sc">-</span><span class="fu">ncol</span>(train_data)]</span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>  predictor <span class="ot">&lt;-</span> iml<span class="sc">::</span>Predictor<span class="sc">$</span><span class="fu">new</span>(</span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    rf_model,</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> X,</span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> train_data<span class="sc">$</span>diabetes,</span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">"prob"</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>  shap <span class="ot">&lt;-</span> iml<span class="sc">::</span>Shapley<span class="sc">$</span><span class="fu">new</span>(predictor, <span class="at">x.interest =</span> test_data[<span class="dv">1</span>, <span class="sc">-</span><span class="fu">ncol</span>(test_data)])</span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>  shap_results[[i]] <span class="ot">&lt;-</span> shap<span class="sc">$</span>results</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3471545 , max =  0.99  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3489431 , max =  0.98  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3501789 , max =  0.99  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3503252 , max =  0.98  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3474309 , max =  0.99  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3496748 , max =  0.99  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3470244 , max =  0.98  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3438699 , max =  0.98  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3456748 , max =  0.99  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  randomForest  (  default  )
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  yhat.randomForest  will be used (  default  )
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package randomForest , ver. 4.7.1.2 , task classification (  default  ) 
+  -&gt; model_info        :  Model info detected classification task but 'y' is a factor .  (  WARNING  )
+  -&gt; model_info        :  By deafult classification tasks supports only numercical 'y' parameter. 
+  -&gt; model_info        :  Consider changing to numerical vector with 0 and 1 values.
+  -&gt; model_info        :  Otherwise I will not be able to calculate residuals or loss function.
+  -&gt; predicted values  :  numerical, min =  0 , mean =  0.3498374 , max =  0.99  
+  -&gt; residual function :  difference between y and yhat (  default  )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in Ops.factor(y, predict_function(model, data)): '-' not meaningful for
+factors</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  -&gt; residuals         :  numerical, min =  NA , mean =  NA , max =  NA  
+  A new explainer has been created!  </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># LIME</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:DALEX':
+
+    explain</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:randomForest':
+
+    combine</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>lime_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(i) {</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  df_i <span class="ot">&lt;-</span> lime_results[[i]]</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed =</span> i,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">variable =</span> df_i<span class="sc">$</span>variable_name,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">contribution =</span> df_i<span class="sc">$</span>contribution</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">|&gt;</span> <span class="fu">bind_rows</span>()</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>lime_df_clean <span class="ot">&lt;-</span> lime_df <span class="sc">|&gt;</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">!=</span> <span class="st">"intercept"</span> <span class="sc">&amp;</span> variable <span class="sc">!=</span> <span class="st">""</span>) <span class="sc">|&gt;</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">factor</span>(variable))  </span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>lime_summary_clean <span class="ot">&lt;-</span> lime_df_clean <span class="sc">|&gt;</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">|&gt;</span></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_contribution =</span> <span class="fu">mean</span>(contribution),</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_contribution =</span> <span class="fu">sd</span>(contribution),</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(lime_summary_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  variable mean_contribution sd_contribution
+  &lt;fct&gt;                &lt;dbl&gt;           &lt;dbl&gt;
+1 age                0.0457          0.0117 
+2 glucose           -0.156           0.00608
+3 insulin           -0.0409          0.0115 
+4 mass              -0.0291          0.00747
+5 pedigree           0.00408         0.0148 
+6 pregnant          -0.0203          0.00815
+7 pressure          -0.00941         0.0105 
+8 triceps            0.0251          0.0166 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lime_df_clean, <span class="fu">aes</span>(<span class="at">x =</span> variable, <span class="at">y =</span> contribution)) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of LIME Contributions"</span>,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Variable"</span>, <span class="at">y =</span> <span class="st">"Contribution"</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="step1_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lime_summary_clean, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(variable, <span class="sc">-</span>sd_contribution), <span class="at">y =</span> sd_contribution)) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Standard Deviation of LIME Explanations"</span>,</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Variable"</span>, <span class="at">y =</span> <span class="st">"Standard Deviation"</span>) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="step1_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># SHAP</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>shap_df <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="cf">function</span>(i) {</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  df_i <span class="ot">&lt;-</span> shap_results[[i]]</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  df_i<span class="sc">$</span>seed <span class="ot">&lt;-</span> i</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>  df_i</span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>shap_df <span class="ot">&lt;-</span> shap_df <span class="sc">|&gt;</span></span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">variable =</span> feature,</span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">contribution =</span> phi) <span class="sc">|&gt;</span></span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(variable, contribution, seed)</span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>shap_df <span class="ot">&lt;-</span> shap_df <span class="sc">|&gt;</span></span>
+<span id="cb43-18"><a href="#cb43-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">!=</span> <span class="st">"intercept"</span> <span class="sc">&amp;</span> variable <span class="sc">!=</span> <span class="st">""</span>) <span class="sc">|&gt;</span></span>
+<span id="cb43-19"><a href="#cb43-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">variable =</span> <span class="fu">factor</span>(variable))  </span>
+<span id="cb43-20"><a href="#cb43-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>shap_summary <span class="ot">&lt;-</span> shap_df <span class="sc">|&gt;</span></span>
+<span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">|&gt;</span></span>
+<span id="cb43-24"><a href="#cb43-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb43-25"><a href="#cb43-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_contribution =</span> <span class="fu">mean</span>(contribution),</span>
+<span id="cb43-26"><a href="#cb43-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_contribution =</span> <span class="fu">sd</span>(contribution),</span>
+<span id="cb43-27"><a href="#cb43-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb43-28"><a href="#cb43-28" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb43-29"><a href="#cb43-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-30"><a href="#cb43-30" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(shap_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  variable mean_contribution sd_contribution
+  &lt;fct&gt;                &lt;dbl&gt;           &lt;dbl&gt;
+1 age               2.78e-18         0.0585 
+2 glucose           4.17e-18         0.169  
+3 insulin           7.77e-19         0.0168 
+4 mass             -2.25e-18         0.0597 
+5 pedigree          1.76e-18         0.0166 
+6 pregnant          0                0.0306 
+7 pressure         -2.60e-19         0.00953
+8 triceps           1.71e-18         0.0231 </code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(shap_df, <span class="fu">aes</span>(<span class="at">x =</span> variable, <span class="at">y =</span> contribution)) <span class="sc">+</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">"green"</span>) <span class="sc">+</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of SHAP Contributions"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Variable"</span>, <span class="at">y =</span> <span class="st">"Contribution"</span>) <span class="sc">+</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="step1_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(shap_summary, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(variable, <span class="sc">-</span>sd_contribution), <span class="at">y =</span> sd_contribution)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"yellow"</span>) <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Standard Deviation of SHAP Explanations"</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Variable"</span>, <span class="at">y =</span> <span class="st">"Standard Deviation"</span>) <span class="sc">+</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="step1_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="missing-value-analysis" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="missing-value-analysis"><span class="header-section-number">2.2</span> Missing value analysis</h2>
+<section id="repeatability-analysis---random-forest" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="repeatability-analysis---random-forest"><span class="header-section-number">2.2</span> Repeatability Analysis - Random Forest</h2>
+<p>In this part, we trained a Random Forest classifier 10 times on the PimaIndiansDiabetes dataset. For each model, we used LIME and SHAP to explain the prediction of the same run Then we aggregated the feature-level contributions and calculated the mean and standard deviation across all runs to assess the repeatability of explanations.</p>
+<p>The results show that LIME explanations vary significantly across runs, especially for features with moderate importance such as triceps and pedigree. In contrast, features like glucose exhibited relatively low standard deviation and consistent direction of contribution. For SHAP, although the mean contribution for most features was close to zero, the standard deviation was large for key features like glucose and mass. This suggests that SHAP may be more balanced in average attribution but more sensitive to model perturbations.</p>
+<p>In summary, both LIME and SHAP explanations were affected by the choice of random seed, demonstrating non-negligible variability in feature attribution.</p>
+</section>
+<section id="repeatability---logistic-regression" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="repeatability---logistic-regression"><span class="header-section-number">2.3</span> Repeatability - Logistic Regression</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(c("mlbench", "caret", "DALEX", "DALEXtra", "iml", "lime","dplyr", "ggplot2", "ggpubr"), dependencies = TRUE)</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlbench)</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DALEX)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DALEXtra)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iml)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lime)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model_type.glm <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) <span class="st">"classification"</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>predict_model.glm <span class="ot">&lt;-</span> <span class="cf">function</span>(x, newdata, ...) {</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(x, newdata, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="st">`</span><span class="at">No</span><span class="st">`</span> <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> preds, <span class="st">`</span><span class="at">Yes</span><span class="st">`</span> <span class="ot">=</span> preds)</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(PimaIndiansDiabetes)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(PimaIndiansDiabetes)</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5293</span>)</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>diabetes <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>diabetes)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> df[, <span class="sc">-</span><span class="fu">ncol</span>(df)]</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> df<span class="sc">$</span>diabetes</span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>lime_contributions <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>shap_contributions <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>train_idx <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(df<span class="sc">$</span>diabetes, <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>train_data <span class="ot">&lt;-</span> df[train_idx, ]</span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> df[<span class="sc">-</span>train_idx, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>In the first step, we evaluate the repeatability of LIME explanations by repeatedly training the model and generating explanations to understand their consistency.</p>
+<p>We conduct self-sampling (bootstrap) on the training data to obtain multiple different training sets. Each time, we train the logistic regression model on the newly sampled data and run the LIME interpretation model prediction with the same test samples, and calculate the standard deviation of the contribution value of each feature in multiple runs.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>n_runs <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>lime_contribs <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n_runs) {</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  boot_idx <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">nrow</span>(train_data), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>  boot_train <span class="ot">&lt;-</span> train_data[boot_idx, ]</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>  logit_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> boot_train, <span class="at">family =</span> binomial)</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  explainer <span class="ot">&lt;-</span> DALEX<span class="sc">::</span><span class="fu">explain</span>(</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">model =</span> logit_model,</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> boot_train[, <span class="sc">-</span><span class="fu">ncol</span>(boot_train)],</span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">as.numeric</span>(boot_train<span class="sc">$</span>diabetes <span class="sc">==</span> <span class="st">"pos"</span>),</span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"glm_"</span>, i),</span>
+<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">predict_function =</span> <span class="cf">function</span>(m, d) <span class="fu">predict</span>(m, d, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>  lime_result <span class="ot">&lt;-</span> <span class="fu">predict_parts</span>(explainer, <span class="at">new_observation =</span> test_data[<span class="dv">1</span>, <span class="sc">-</span><span class="fu">ncol</span>(test_data)],</span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>                               <span class="at">type =</span> <span class="st">"break_down"</span>)</span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>  lime_df <span class="ot">&lt;-</span> lime_result <span class="sc">%&gt;%</span></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(variable <span class="sc">!=</span> <span class="st">"intercept"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(variable, contribution)</span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>  lime_contribs[[i]] <span class="ot">&lt;-</span> lime_df</span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_1 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.001490493 , mean =  0.3593496 , max =  0.9958617  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.9534075 , mean =  -3.827759e-13 , max =  0.9856082  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_2 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.002668286 , mean =  0.3219512 , max =  0.978063  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.8972503 , mean =  -2.019077e-13 , max =  0.9888889  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_3 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.002188936 , mean =  0.3447154 , max =  0.9860676  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.8505019 , mean =  -5.432463e-15 , max =  0.9907279  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_4 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.0004471588 , mean =  0.3317073 , max =  0.9980853  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.94405 , mean =  -1.474228e-10 , max =  0.9947934  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_5 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.001453277 , mean =  0.3495935 , max =  0.9830114  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.9333344 , mean =  -2.370711e-15 , max =  0.9933661  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_6 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.004191668 , mean =  0.3447154 , max =  0.9763506  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.9545668 , mean =  -1.842577e-13 , max =  0.9958083  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_7 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.004528123 , mean =  0.3252033 , max =  0.9956203  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.9475119 , mean =  -9.104453e-15 , max =  0.983609  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_8 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.003427715 , mean =  0.3560976 , max =  0.9924571  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.9353339 , mean =  -3.663064e-16 , max =  0.9104446  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_9 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.007305473 , mean =  0.3658537 , max =  0.9946787  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.9522851 , mean =  -6.758618e-14 , max =  0.9577366  
+  A new explainer has been created!  
+Preparation of a new explainer is initiated
+  -&gt; model label       :  glm_10 
+  -&gt; data              :  615  rows  8  cols 
+  -&gt; target variable   :  615  values 
+  -&gt; predict function  :  function(m, d) predict(m, d, type = "response") 
+  -&gt; predicted values  :  No value for predict function target column. (  default  )
+  -&gt; model_info        :  package stats , ver. 4.4.2 , task classification (  default  ) 
+  -&gt; predicted values  :  numerical, min =  0.001906982 , mean =  0.3284553 , max =  0.9547832  
+  -&gt; residual function :  difference between y and yhat (  default  )
+  -&gt; residuals         :  numerical, min =  -0.9030004 , mean =  -1.521891e-15 , max =  0.9934916  
+  A new explainer has been created!  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>lime_summary <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(lime_contribs, <span class="at">.id =</span> <span class="st">"run"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sd_contribution =</span> <span class="fu">sd</span>(contribution), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lime_summary, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(variable, <span class="sc">-</span>sd_contribution), <span class="at">y =</span> sd_contribution)) <span class="sc">+</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"LIME Repeatability (SD of Contributions)"</span>, <span class="at">x =</span> <span class="st">"Variable"</span>, <span class="at">y =</span> <span class="st">"SD"</span>) <span class="sc">+</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="step1_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="repeatability-analysis---logistic-regression" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="repeatability-analysis---logistic-regression"><span class="header-section-number">2.4</span> Repeatability Analysis - Logistic Regression</h2>
+<p>The column height indicates the standard deviation of the LIME contribution for each feature across different model runs. A higher column means greater variation in the feature’s attribution, indicating worse repeatability, a lower column implies more consistent contributions, indicating greater stability.</p>
+<p>We found that LIME explanations were more sensitive to training data changes for features like mass and glucose, which had the highest standard deviations in contribution across runs. However, features such as pressure, age, and pedigree showed very low variability, with consistently stable contributions across repeated model trainings. This suggests that for these features, LIME explanations are highly repeatable and robust.</p>
 
 
 </section>
@@ -613,8 +1350,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./step2.html" class="pagination-link" aria-label="Results">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Results</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./step2.html" class="pagination-link" aria-label="Step2">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Step2</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

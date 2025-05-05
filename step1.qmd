@@ -1,5 +1,255 @@
-# Step1
+# Step1: Repeatability
 
-## Description
+## Repeatability - Random Forest 
+```{r}
+library(randomForest)
+library(DALEX)
+library(iml)
+library(mlbench)
+library(caret)
 
-## Missing value analysis
+data(PimaIndiansDiabetes)
+df <- na.omit(PimaIndiansDiabetes)
+set.seed(5293)
+
+train_idx <- createDataPartition(df$diabetes, p = 0.8, list = FALSE)
+train_data <- df[train_idx, ]
+test_data <- df[-train_idx, ]
+
+lime_results <- list()
+shap_results <- list()
+
+for (i in 1:10) {
+  set.seed(i)
+  rf_model <- randomForest(diabetes ~ ., data = train_data, ntree = 100)
+
+  # LIME
+  explainer_lime <- DALEX::explain(
+    rf_model,
+    data = train_data[, -ncol(train_data)],
+    y = train_data$diabetes
+  )
+  lime_expl <- predict_parts(
+    explainer_lime,
+    new_observation = test_data[1, -ncol(test_data)],
+    type = "break_down"
+  )
+  lime_results[[i]] <- lime_expl
+
+  # SHAP
+  X <- train_data[, -ncol(train_data)]
+  predictor <- iml::Predictor$new(
+    rf_model,
+    data = X,
+    y = train_data$diabetes,
+    type = "prob"
+  )
+  shap <- iml::Shapley$new(predictor, x.interest = test_data[1, -ncol(test_data)])
+  shap_results[[i]] <- shap$results
+}
+
+```
+```{r}
+# LIME
+
+library(dplyr)
+library(ggplot2)
+
+lime_df <- lapply(1:10, function(i) {
+  df_i <- lime_results[[i]]
+  data.frame(
+    seed = i,
+    variable = df_i$variable_name,
+    contribution = df_i$contribution
+  )
+}) |> bind_rows()
+
+
+lime_df_clean <- lime_df |>
+  filter(variable != "intercept" & variable != "") |>
+  mutate(variable = factor(variable))  
+
+lime_summary_clean <- lime_df_clean |>
+  group_by(variable) |>
+  summarise(
+    mean_contribution = mean(contribution),
+    sd_contribution = sd(contribution),
+    .groups = "drop"
+  )
+
+print(lime_summary_clean)
+```
+
+```{r}
+library(ggplot2)
+
+ggplot(lime_df_clean, aes(x = variable, y = contribution)) +
+  geom_boxplot(fill = "red") +
+  labs(title = "Distribution of LIME Contributions",
+       x = "Variable", y = "Contribution") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+ggplot(lime_summary_clean, aes(x = reorder(variable, -sd_contribution), y = sd_contribution)) +
+  geom_col(fill = "blue") +
+  labs(title = "Standard Deviation of LIME Explanations",
+       x = "Variable", y = "Standard Deviation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+```{r}
+# SHAP
+
+library(dplyr)
+library(ggplot2)
+
+shap_df <- do.call(rbind, lapply(1:10, function(i) {
+  df_i <- shap_results[[i]]
+  df_i$seed <- i
+  df_i
+}))
+
+shap_df <- shap_df |>
+  rename(variable = feature,
+         contribution = phi) |>
+  dplyr::select(variable, contribution, seed)
+
+shap_df <- shap_df |>
+  filter(variable != "intercept" & variable != "") |>
+  mutate(variable = factor(variable))  
+
+
+shap_summary <- shap_df |>
+  group_by(variable) |>
+  summarise(
+    mean_contribution = mean(contribution),
+    sd_contribution = sd(contribution),
+    .groups = "drop"
+  )
+
+print(shap_summary)
+```
+
+```{r}
+ggplot(shap_df, aes(x = variable, y = contribution)) +
+  geom_boxplot(fill = "green") +
+  labs(title = "Distribution of SHAP Contributions",
+       x = "Variable", y = "Contribution") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+ggplot(shap_summary, aes(x = reorder(variable, -sd_contribution), y = sd_contribution)) +
+  geom_col(fill = "yellow") +
+  labs(title = "Standard Deviation of SHAP Explanations",
+       x = "Variable", y = "Standard Deviation") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+## Repeatability Analysis - Random Forest
+
+In this part, we trained a Random Forest classifier 10 times on the PimaIndiansDiabetes dataset. For each model, we used LIME and SHAP to explain the prediction of the same run Then we aggregated the feature-level contributions and calculated the mean and standard deviation across all runs to assess the repeatability of explanations.
+
+The results show that LIME explanations vary significantly across runs, especially for features with moderate importance such as triceps and pedigree. In contrast, features like glucose exhibited relatively low standard deviation and consistent direction of contribution. For SHAP, although the mean contribution for most features was close to zero, the standard deviation was large for key features like glucose and mass. This suggests that SHAP may be more balanced in average attribution but more sensitive to model perturbations.
+
+In summary, both LIME and SHAP explanations were affected by the choice of random seed, demonstrating non-negligible variability in feature attribution.
+
+
+## Repeatability - Logistic Regression
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+#install.packages(c("mlbench", "caret", "DALEX", "DALEXtra", "iml", "lime","dplyr", "ggplot2", "ggpubr"), dependencies = TRUE)
+
+library(mlbench)
+library(caret)
+library(DALEX)
+library(DALEXtra)
+library(iml)
+library(lime)
+library(dplyr)
+library(ggplot2)
+```
+
+```{r}
+model_type.glm <- function(x, ...) "classification"
+predict_model.glm <- function(x, newdata, ...) {
+  preds <- predict(x, newdata, type = "response")
+  data.frame(`No` = 1 - preds, `Yes` = preds)
+}
+
+
+data(PimaIndiansDiabetes)
+df <- na.omit(PimaIndiansDiabetes)
+set.seed(5293)
+df$diabetes <- factor(df$diabetes)
+X <- df[, -ncol(df)]
+y <- df$diabetes
+
+lime_contributions <- list()
+shap_contributions <- list()
+
+
+train_idx <- createDataPartition(df$diabetes, p = 0.8, list = FALSE)
+train_data <- df[train_idx, ]
+test_data <- df[-train_idx, ]
+```
+
+In the first step, we evaluate the repeatability of LIME explanations by repeatedly training the model and generating explanations to understand their consistency.
+
+We conduct self-sampling (bootstrap) on the training data to obtain multiple different training sets. Each time, we train the logistic regression model on the newly sampled data and run the LIME interpretation model prediction with the same test samples, and calculate the standard deviation of the contribution value of each feature in multiple runs.
+
+```{r}
+n_runs <- 10
+lime_contribs <- list()
+
+for (i in 1:n_runs) {
+  boot_idx <- sample(nrow(train_data), replace = TRUE)
+  boot_train <- train_data[boot_idx, ]
+
+  logit_model <- glm(diabetes ~ ., data = boot_train, family = binomial)
+
+  explainer <- DALEX::explain(
+    model = logit_model,
+    data = boot_train[, -ncol(boot_train)],
+    y = as.numeric(boot_train$diabetes == "pos"),
+    label = paste0("glm_", i),
+    predict_function = function(m, d) predict(m, d, type = "response")
+  )
+
+  lime_result <- predict_parts(explainer, new_observation = test_data[1, -ncol(test_data)],
+                               type = "break_down")
+  lime_df <- lime_result %>%
+    filter(variable != "intercept") %>%
+    select(variable, contribution)
+
+  lime_contribs[[i]] <- lime_df
+}
+
+lime_summary <- bind_rows(lime_contribs, .id = "run") %>%
+  group_by(variable) %>%
+  summarise(sd_contribution = sd(contribution), .groups = "drop")
+
+library(ggplot2)
+ggplot(lime_summary, aes(x = reorder(variable, -sd_contribution), y = sd_contribution)) +
+  geom_col(fill = "steelblue") +
+  labs(title = "LIME Repeatability (SD of Contributions)", x = "Variable", y = "SD") +
+  theme_minimal()
+
+
+```
+## Repeatability Analysis - Logistic Regression
+
+The column height indicates the standard deviation of the LIME contribution for each feature across different model runs. A higher column means greater variation in the feature's attribution, indicating worse repeatability, a lower column implies more consistent contributions, indicating greater stability.
+
+We found that LIME explanations were more sensitive to training data changes for features like mass and glucose, which had the highest standard deviations in contribution across runs. However, features such as pressure, age, and pedigree showed very low variability, with consistently stable contributions across repeated model trainings. This suggests that for these features, LIME explanations are highly repeatable and robust.
+
+
